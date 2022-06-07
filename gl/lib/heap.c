@@ -75,7 +75,7 @@ heap_free (struct heap *heap)
 
 /* Insert element into heap. */
 
-int
+void
 heap_insert (struct heap *heap, void *item)
 {
   if (heap->capacity - 1 <= heap->count)
@@ -84,8 +84,6 @@ heap_insert (struct heap *heap, void *item)
 
   heap->array[++heap->count] = item;
   heapify_up (heap->array, heap->count, heap->compare);
-
-  return 0;
 }
 
 /* Pop top element off heap. */
