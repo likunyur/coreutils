@@ -352,17 +352,17 @@ do_link (char const *source, int destdir_fd, char const *dest_base,
           if (backup_base)
             {
               char *backup = backup_base;
-              void *alloc = NULL;
+              void *alloc;
               ptrdiff_t destdirlen = dest_base - dest;
               if (0 < destdirlen)
                 {
                   alloc = xmalloc (destdirlen + strlen (backup_base) + 1);
                   backup = memcpy (alloc, dest, destdirlen);
                   strcpy (backup + destdirlen, backup_base);
+		  free (alloc);
                 }
               quoted_backup = quoteaf_n (2, backup);
               backup_sep = " ~ ";
-              free (alloc);
             }
           printf ("%s%s%s %c> %s\n", quoted_backup, backup_sep,
                   quoteaf_n (0, dest), symbolic_link ? '-' : '=',
